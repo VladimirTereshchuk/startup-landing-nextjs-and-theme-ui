@@ -1,3 +1,5 @@
+/** @jsxImportSource theme-ui */
+
 import { jsx, Box, Heading, Text, Button, Link } from "theme-ui";
 
 export default function TextFeature({
@@ -7,15 +9,40 @@ export default function TextFeature({
   btnName,
   btnURL = "#",
 }) {
-  return <h1>TextFeature</h1>;
+  return (
+    <Box sx={styles.card}>
+      <Box sx={styles.wrapper}>
+        <Text as="p" sx={styles.wrapper.subTitle}>
+          {subTitle}
+        </Text>
+        <Heading as="h2" sx={styles.wrapper.title}>
+          {title}
+        </Heading>
+      </Box>
+      {description && (
+        <Text as="p" className="description" sx={styles.description}>
+          {description}
+        </Text>
+      )}
+      {btnName && (
+        <Link href={btnURL} variant="default">
+          <Button variant="primary" aria-label={btnName}>
+            {btnName}
+          </Button>
+        </Link>
+      )}
+    </Box>
+  );
 }
 
 const styles = {
   card: {
+    // border: "1px solid red",
     display: "flex",
     alignItems: "flex-start",
     flexDirection: "column",
     flexShrink: 0,
+    textAlign: ["center", null, null, "left"],
     a: {
       m: ["0 auto", null, null, 0],
     },

@@ -1,3 +1,5 @@
+/** @jsxImportSource theme-ui */
+
 import { jsx } from "theme-ui";
 import { Container, Grid } from "theme-ui";
 import SectionHeader from "components/section-header";
@@ -39,7 +41,27 @@ const data = [
 ];
 
 export default function Feature() {
-  return <h1>Feature</h1>;
+  return (
+    <section sx={{ variant: "section.feature" }}>
+      <Container>
+        <SectionHeader
+          slogan="Quality Features"
+          title="Amazing useful feature"
+        />
+        <Grid sx={styles.grid}>
+          {data.map((item) => (
+            <FeatureCard
+              key={item.id}
+              src={item.imgSrc}
+              altText={item.altText}
+              title={item.title}
+              text={item.text}
+            />
+          ))}
+        </Grid>
+      </Container>
+    </section>
+  );
 }
 
 const styles = {

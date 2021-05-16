@@ -1,3 +1,5 @@
+/** @jsxImportSource theme-ui */
+
 import React, { useState } from "react";
 import {
   jsx,
@@ -42,7 +44,56 @@ const data = {
 };
 
 export default function ServiceSection() {
-  return <h1>Service Section</h1>;
+  const [videoOpen, setVideoOpen] = useState(false);
+  const handleClick = (e) => {
+    e.preventDefault();
+    setVideoOpen(true);
+  };
+  return (
+    <section sx={{ variant: "section.services" }}>
+      <Container sx={styles.containerBox}>
+        <Box sx={styles.thumbnail}>
+          <Image src={ServiceThumb} alt="Thumbnail" />
+          <Button
+            sx={styles.videoBtn}
+            onClick={handleClick}
+            aria-label="Play Button"
+          >
+            <span>
+              <IoIosPlay />
+            </span>
+          </Button>
+          <Box sx={styles.shapeBox}>
+            <Image src={shapePattern} alt="Shape" />
+          </Box>
+        </Box>
+        <Box sx={styles.contentBox}>
+          <TextFeature subTitle={data.subTitle} title={data.title} />
+          <Grid sx={styles.grid}>
+            {data.features.map((feature) => (
+              <Box sx={styles.card} key={feature.id}>
+                <Image
+                  src={feature.imgSrc}
+                  alt={feature.altText}
+                  sx={styles.icon}
+                />
+                <Box sx={styles.wrapper}>
+                  <Heading sx={styles.wrapper.title}>{feature.title}</Heading>
+                  <Text sx={styles.wrapper.subTitle}>{feature.text}</Text>
+                </Box>
+              </Box>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
+      <ModalVideo
+        channel="youtube"
+        isOpen={videoOpen}
+        videoId="iGBERMGMIvc"
+        onClose={() => setVideoOpen(false)}
+      />
+    </section>
+  );
 }
 
 const playPluse = keyframes`
@@ -63,23 +114,28 @@ const styles = {
     position: "relative",
   },
   containerBox: {
+    border: "1px solid red",
+
     display: "flex",
     alignItems: ["flex-start", null, null, "center"],
     justifyContent: ["flex-start", null, null, "space-between"],
+    // flexDirection: "column",
     flexDirection: ["column", null, null, "row"],
     pb: [0, null, null, null, null, 7],
   },
   thumbnail: {
+    border: "1px solid green",
+
     mr: ["auto", null, null, 6, 60, 85],
     order: [2, null, null, 0],
     ml: ["auto", null, null, 0],
     display: "inline-flex",
     position: "relative",
-    "> img": {
-      position: "relative",
-      zIndex: 1,
-      height: [310, "auto"],
-    },
+    // "> img": {
+    //   position: "relative",
+    //   zIndex: 1,
+    //   height: [310, "auto"],
+    // },
   },
   shapeBox: {
     position: "absolute",
@@ -134,7 +190,7 @@ const styles = {
     width: ["100%", null, null, 315, 390, 450, null, 500],
     flexShrink: 0,
     mb: [7, null, 60, 0],
-    textAlign: ["center", null, null, "left"],
+    // textAlign: ["center", null, null, "left"],
   },
   grid: {
     pr: [2, 0, null, null, 6, "70px"],

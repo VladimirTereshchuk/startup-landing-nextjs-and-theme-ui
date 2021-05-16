@@ -8,6 +8,7 @@ import Performance from "assets/key-feature/performance.svg";
 import Partnership from "assets/key-feature/partnership.svg";
 import Subscription from "assets/key-feature/subscription.svg";
 import Support from "assets/key-feature/support.svg";
+import FeatureCard from "components/feature-card";
 
 const data = [
   {
@@ -44,7 +45,21 @@ export default function KeyFeature() {
   return (
     <section sx={{ variant: "section.keyFeature" }} id="feature">
       <Container>
-        <SectionHeader slogan="What's the funtion" title="Meet" />
+        <SectionHeader
+          slogan="What's the funtion"
+          title="Meet the feature of our product"
+        />
+        <Grid sx={styles.grid}>
+          {data.map((item) => (
+            <FeatureCardColumn
+              key={item.id}
+              src={item.imgSrc}
+              alt={item.altText}
+              title={item.title}
+              text={item.text}
+            />
+          ))}
+        </Grid>
       </Container>
     </section>
   );
