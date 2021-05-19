@@ -4,7 +4,32 @@ import data from "./footer.data";
 import FooterLogo from "assets/logo.svg";
 
 export default function Footer() {
-  return <h1>Footer</h1>;
+  return (
+    <footer sx={styles.footerB}>
+      <Container>
+        <Box sx={styles.footer.footerBottomArea}>
+          <Link path="/">
+            <Image src={FooterLogo} />
+            <Box sx={styles.footer.menus}>
+              <nav>
+                {data.menuItem.map((item, i) => (
+                  <Link
+                    path={item.path}
+                    key={i}
+                    label={item.label}
+                    sx={styles.footer.link}
+                  />
+                ))}
+              </nav>
+            </Box>
+          </Link>
+        </Box>
+        <Text sx={styles.footer.copyright}>
+          Copyright by {new Date().getFullYear} Company Name
+        </Text>
+      </Container>
+    </footer>
+  );
 }
 
 const styles = {

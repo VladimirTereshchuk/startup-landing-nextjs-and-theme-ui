@@ -1,3 +1,5 @@
+/** @jsxImportSource theme-ui */
+
 import { jsx, Container, Box, Flex } from "theme-ui";
 import { keyframes } from "@emotion/react";
 import React, { useState } from "react";
@@ -151,7 +153,7 @@ const packages = {
       id: 2,
       name: "Business king",
       description: "For Enterprise business",
-      priceWithUnit: "$25",
+      priceWithUnit: "$145",
       buttonText: "Create account",
       anotherOption: "Or Start 10 Days trail",
       points: [
@@ -187,7 +189,7 @@ const packages = {
       headerIcon: <IoIosCheckmarkCircle />,
       name: "Pro Master",
       description: "For pro level developers",
-      priceWithUnit: "$39",
+      priceWithUnit: "$199",
       buttonText: "Create account",
       anotherOption: "Or Start 10 Days trail",
       points: [
@@ -240,6 +242,24 @@ const responsive = {
 
 export default function Package() {
   const { monthly, annual } = packages;
+  const [state, setState] = useState({
+    active: "monthly",
+    pricingPlan: monthly,
+  });
+
+  const handlePricingPlan = (plan) => {
+    if (plan === "annual") {
+      setState({
+        active: "annual",
+        pricingPlan: annual,
+      });
+    } else {
+      setState({
+        active: "monthly",
+        pricingPlan: monthly,
+      });
+    }
+  };
 
   const sliderParams = {
     additionalTransfrom: 0,
@@ -253,7 +273,7 @@ export default function Package() {
     customButtonGroup: <ButtonGroup />,
     dotListClass: "",
     focusOnSelect: false,
-    infinite: false,
+    infinite: true,
     keyBoardControl: false,
     itemClass: "",
     minimumTouchDrag: 80,
@@ -262,9 +282,46 @@ export default function Package() {
     responsive: responsive,
     showDots: false,
     sliderClass: "",
+    // autoPlay: true,
+    // autoPlay={this.props.deviceType !== "mobile" ? true : false}
   };
 
-  return <h1>Package</h1>;
+  return (
+    <section sx={{ variant: "section.pricing" }} id="pricing">
+      <Container>
+        <SectionHeader slogan="Pricing Plan" title="Choose your pricing plan" />
+        <Flex sx={styles.buttonGroup}>
+          <Box sx={styles.buttonGroupInner}>
+            <button
+              className={state.active === "monthly" ? "active" : ""}
+              type="button"
+              aria-label="Monthly"
+              onClick={() => handlePricingPlan("monthly")}
+            >
+              Monthly Plan
+            </button>
+            <button
+              className={state.active === "annual" ? "active" : ""}
+              type="button"
+              aria-label="Annual"
+              onClick={() => handlePricingPlan("annual")}
+            >
+              Annual Plan
+            </button>
+          </Box>
+        </Flex>
+        <Box sx={styles.pricingWrapper} className="pricing__wrapper">
+          <Carousel {...sliderParams}>
+            {state.pricingPlan.map((packageData) => (
+              <Box sx={styles.pricingItem} key={packageData.id}>
+                <PriceCard data={packageData} activePlan={state.active} />
+              </Box>
+            ))}
+          </Carousel>
+        </Box>
+      </Container>
+    </section>
+  );
 }
 
 const fadeIn = keyframes`
@@ -329,22 +386,29 @@ const styles = {
     mb: "7",
     mt: ["-15px", "-35px"],
     position: "relative",
+    // cursor: "pointer",
     zIndex: 2,
   },
   buttonGroupInner: {
+    // border: "1px solid red",
     display: "flex",
     padding: "7px",
-    margin: "0 auto",
+    margin: "10px auto",
     borderRadius: "5px",
+    // cursor: "pointer",
+
     backgroundColor: "#F7F8FB",
     button: {
       border: 0,
+      // border: "1px solid blue",
       padding: ["15px 20px", "15px 27px"],
       borderRadius: "5px",
       color: "text",
       fontSize: [1, 2],
       lineHeight: 1.2,
       fontWeight: 500,
+      zIndex: 2,
+
       backgroundColor: "transparent",
       cursor: "pointer",
       fontFamily: "body",

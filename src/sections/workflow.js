@@ -1,3 +1,5 @@
+/** @jsxImportSource theme-ui */
+
 import { jsx } from "theme-ui";
 import { Container, Grid, Box, Heading, Text } from "theme-ui";
 import SectionHeader from "components/section-header";
@@ -30,7 +32,28 @@ const data = [
 ];
 
 export default function WorkFlow() {
-  return <h1>Workflow</h1>;
+  return (
+    <section sx={styles.workflow}>
+      <Container>
+        <SectionHeader
+          slogan="Some slogan here"
+          title="Here should be some title"
+          isWhite
+        />
+        <Grid sx={styles.grid}>
+          {data.map((item) => (
+            <Box sx={styles.card} key={item.id}>
+              <Box sx={styles.iconBox}>{`0${item.id}`}</Box>
+              <Box sx={styles.wrapper}>
+                <Heading sx={styles.wrapper.title}>{item.title}</Heading>
+                <Text sx={styles.wrapper.subTitle}>{item.text}</Text>
+              </Box>
+            </Box>
+          ))}
+        </Grid>
+      </Container>
+    </section>
+  );
 }
 
 const styles = {

@@ -114,7 +114,7 @@ const styles = {
     position: "relative",
   },
   containerBox: {
-    border: "1px solid red",
+    // border: "1px solid red",
 
     display: "flex",
     alignItems: ["flex-start", null, null, "center"],
@@ -124,7 +124,7 @@ const styles = {
     pb: [0, null, null, null, null, 7],
   },
   thumbnail: {
-    border: "1px solid green",
+    // border: "1px solid green",
 
     mr: ["auto", null, null, 6, 60, 85],
     order: [2, null, null, 0],
